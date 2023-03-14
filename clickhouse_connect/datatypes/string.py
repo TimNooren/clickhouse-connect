@@ -43,7 +43,10 @@ class String(ClickHouseType):
                     dest += y
         else:
             for x in column:
-                y = x.encode(encoding)
+                if isinstance(x, str):
+                    y = x.encode(encoding)
+                else:
+                    y = x
                 sz = len(y)
                 while True:
                     b = sz & 0x7f
